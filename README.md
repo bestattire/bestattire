@@ -1,0 +1,1 @@
+This is fun project to help people get right trends in clothing.
