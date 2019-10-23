@@ -1,0 +1,23 @@
+body{
+	width: 100%;
+	float: left;
+}
+
+.class1,
+.class2,
+.class3 {
+  width: 33.33%;
+  float: left;
+  height: 100%;
+}
+
+p{
+  padding-top: 25px;
+  text-align: center;
+}
+
+@media screen and (max-width: 600px){
+	.column{
+		width: 100%;
+	}
+}
