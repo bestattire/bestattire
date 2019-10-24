@@ -8,9 +8,9 @@ var express = require('express'),
 	passport =require("passport"),
 	LocalStrategy=require("passport-local");
 	User=require("./models/user");
-
 //mongoose.connect("mongodb://localhost/best_attire", {useNewUrlParser:true});
-mongoose.connect("mongodb+srv://best-attire:best1234@best-attire-6udzw.mongodb.net/test?retryWrites=true&w=majority");
+mongoose.connect(process.env.DATABASEURL, {useNewUrlParser:true});
+//mongoose.connect("mongodb+srv://best-attire:best1234@best-attire-6udzw.mongodb.net/test?retryWrites=true&w=majority");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.set("view engine", "ejs");
