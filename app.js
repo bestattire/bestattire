@@ -3,6 +3,8 @@ var express = require('express'),
 	bodyParser = require("body-parser"),
 	mongoose =require("mongoose"),
 	Dress = require("./models/dresses"),
+	Ethnic = require("./models/ethnic"),
+	Casual = require("./models/casual"),
 	passport =require("passport"),
 	LocalStrategy=require("passport-local");
 	User=require("./models/user");
@@ -51,6 +53,94 @@ app.get("/knowmore",function(req,res){
 	res.render("knowmore");
 });
 
+app.get("/whatstrending",function(req,res){
+	res.render("whatstrending.ejs");
+});
+
+//ETHNIC ATTIRES
+
+app.get("/ethnic",isLoggedIn, function(req,res){
+	Ethnic.find({},function(err,allethnics){
+		if(err){
+			console.log(err);
+		}else{
+			res.render("ethnic",{ethnics:allethnics});
+		}
+	});
+});
+
+app.post("/ethnic",function(req,res){
+	var type =req.body.type;
+	var image = req.body.image;
+	var description = req.body.description;
+	var newethnic ={type:type, image:image, description:description};
+	Ethnic.create(newethnic,function(err, newlyadded){
+		if(err){
+			console.log(err);
+		}else{
+			res.redirect("/ethnic")
+		}
+	});	
+});
+
+app.get("/ethnic/newethnic",function(req,res){
+	res.render("newethnic")
+})
+
+app.get("/ethnic/:id" , function(req,res){
+	Ethnic.findById(req.params.id,function(err,searcheddress){
+		if(err){
+			console.log(err);
+		}else{
+			res.render("showethnic",{ethnics: searcheddress})
+		}
+	});
+});
+
+
+
+//CASUAL ATTIRES
+
+app.get("/casual",isLoggedIn,function(req,res){
+	Casual.find({},function(err,allcasuals){
+		if(err){
+			console.log(err);
+		}else{
+			res.render("casual",{casuals: allcasuals});
+		}
+	});
+});
+
+app.post("/casual",function(req,res){
+	var type =req.body.type;
+	var image = req.body.image;
+	var description = req.body.description;
+	var newcasual ={type:type, image:image, description:description};
+	Casual.create(newcasual,function(err,newlyadded){
+		if(err){
+			console.log(err);
+		}else{
+			res.redirect("/casual");
+		}
+	});
+});
+
+app.get("/casual/newcasual",function(req,res){
+	res.render("newcasual")
+})
+
+app.get("/casual/:id" , function(req,res){
+	Casual.findById(req.params.id,function(err,searcheddress){
+		if(err){
+			console.log(err);
+		}else{
+			res.render("showcasual",{casuals: searcheddress})
+		}
+	});
+});
+
+//WESTERN ATTIRES
+
 app.get("/dresses", isLoggedIn, function(req,res){
 	Dress.find({},function(err,alldress){
 		if(err){
@@ -76,7 +166,18 @@ app.post("/dresses",function(req,res){
 });
 
 app.get("/dresses/new",function(req,res){
-	res.render("new.ejs");
+	res.render("new");
+});
+
+//SHOW-shows more info about one dress
+app.get("/dresses/:id",function(req,res){
+	Dress.findById(req.params.id,function(err, searcheddress){
+		if(err){
+			console.log(err);
+		}else{
+			res.render("show", {dresses: searcheddress});
+		}
+	});
 });
 
 //LOGIN LOGIC
@@ -85,7 +186,7 @@ app.get("/login", function(req,res){
 })
 app.post("/login", passport.authenticate("local",
 	{
-		successRedirect: "/dresses",
+		successRedirect: "/whatstrending",
 		failureRedirect: "/login"
 	}), function(req,res){
 });
@@ -102,7 +203,7 @@ app.post("/signup",function(req,res){
 			return res.render("signup");
 		}
 		passport.authenticate("local")(req,res,function(){
-			res.redirect("/dresses");
+			res.redirect("/whatstrending");
 		});
 	});
 });
@@ -111,21 +212,6 @@ app.post("/signup",function(req,res){
 app.get("/logout",function(req,res){
 	req.logout();
 	res.redirect("/dresses");
-});
-
-app.get("/whatstrending",function(req,res){
-	res.render("whatstrending.ejs");
-});
-
-//SHOW-shows more info about one campground
-app.get("/dresses/:id",function(req,res){
-	Dress.findById(req.params.id,function(err, searcheddress){
-		if(err){
-			console.log(err);
-		}else{
-			res.render("show", {dresses: searcheddress});
-		}
-	});
 });
 
 function isLoggedIn(req,res,next){

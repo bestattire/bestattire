@@ -1,0 +1,32 @@
+<% include partials/header %>
+
+<div class="container">
+	<header class="jumbotron">
+			<div class="container">
+				<h1>"Casual means Comfortable not Sloopy"</h1>
+				<p>Let's Explore!!</p>
+				<p>
+					<a class="btn btn-primary btn-large" href="/casual/newcasual">add new attire</a>
+				</p>
+			</div>
+	</header>
+
+	<div class="row text-center" style="display:flex; flex-wrap:wrap;">
+		<% casuals.forEach(function(casuals){ %>
+		<div class="col-md-3 col-md-6">
+			<div class="thumbnail">
+				<img src="<%= casuals.image %>">
+			</div>
+			<div class ="caption">
+				<h4><%= casuals.type %><h4>
+			</div>
+			<p>
+				<a href="/casual/<%= casuals._id %>" class="btn btn-primary">More info</a>
+			</p>
+		</div>
+		<% }); %>
+	</div>	
+</div>
+
+
+<% include partials/footer %>
