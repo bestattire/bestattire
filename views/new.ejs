@@ -1,12 +1,22 @@
 <% include partials/header %>
-<h1>add a new attire</h1>
 
-<form action="/dresses" method="POST">
-	<input type="text" name="type" placeholder = "type">
-	<input type="text" name="image" placeholder ="image url">
-	<input type="text" name="description" placeholder ="description">
-	<button> Submit!</button>
-</form>
-<a href="/dresses">go back</a>
+<div class="background">
+	<div class="new">
+		<h1>add a new attire</h1>
+		<form action="/dresses" method="POST">
+			<div class="textbox">
+				<input type="text" name="type" placeholder = "type">
+			</div>
+			<div class="textbox">
+				<input type="text" name="image" placeholder ="image url">
+			</div>
+			<div class="textbox">
+				<input type="text" name="description" placeholder ="description">
+			</div>	
+			<input class="btn btn-primary newbtn" type="submit" name="login-button" value="Add new Attire">
+		</form>
+	</div>
+</div>
+<a class="btn btn-success" href="/dresses">go back</a>
 
 <% include partials/footer %>

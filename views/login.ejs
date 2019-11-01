@@ -1,13 +1,18 @@
 <% include partials/header %>
 
-
-<div class="login-box">
-	<h1>Login</h1>
-	<div class="textbox">
+<div class="background">
+	<div class="login-box">
+		<h1>Login</h1>
 		<form action="/login" method="post">
-			<input type="text" name="username" placeholder="username">
-			<input type="password" name="password" placeholder="password">
-			<input type="submit" name="login-button" value=" Login">
+			<div class="textbox">
+				<i class="fa fa-user" aria-hidden="true"></i>
+				<input type="text" name="username" placeholder="username">
+			</div>
+			<div class="textbox">
+				<i class="fa fa-lock" aria-hidden="true"></i>
+				<input type="password" name="password" placeholder="password">
+			</div>
+			<input class="btn btn-primary loginbtn" type="submit" name="login-button" value=" Login">
 		</form>
 	</div>
 </div>

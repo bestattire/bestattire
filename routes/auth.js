@@ -8,21 +8,13 @@ router.get("/", function(req,res){
 	res.render("mainpage");
 });
 
-router.get("/knowmore",function(req,res){
-	res.render("knowmore");
-});
-
-router.get("/whatstrending",function(req,res){
-	res.render("whatstrending.ejs");
-});
-
 //LOGIN LOGIC
 router.get("/login", function(req,res){
 	res.render("login.ejs");
 })
 router.post("/login", passport.authenticate("local",
 	{
-		successRedirect: "/whatstrending",
+		successRedirect: "/dresses",
 		failureRedirect: "/login"
 	}), function(req,res){
 });
@@ -39,7 +31,7 @@ router.post("/signup",function(req,res){
 			return res.render("signup");
 		}
 		passport.authenticate("local")(req,res,function(){
-			res.redirect("/whatstrending");
+			res.redirect("/dresses");
 		});
 	});
 });

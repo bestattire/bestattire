@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 Dress = require("../models/dresses");
 
-//WESTERN ATTIRES
+//ATTIRES
 
 router.get("/dresses", isLoggedIn, function(req,res){
 	Dress.find({},function(err,alldress){
@@ -39,6 +39,39 @@ router.get("/dresses/:id",function(req,res){
 			console.log(err);
 		}else{
 			res.render("show", {dresses: searcheddress});
+		}
+	});
+});
+
+//edit route
+router.get("/dresses/:id/edit",function(req,res){
+	Dress.findById(req.params.id, function(err,searcheddress){
+		if(err){
+			res.redirect("/dresses");
+		}else{
+			res.render("edit",{dresses: searcheddress});
+		}
+	});
+});
+
+//update route
+router.put("/dresses/:id", function(req,res){
+	Dress.findByIdAndUpdate(req.params.id,req.body.dresses,function(err,updatedress){
+		if(err){
+			res.redirect("/dresses");
+		}else{
+			res.redirect("/dresses/"+req.params.id);
+		}
+	});
+});
+
+//delete route
+router.delete("/dresses/:id",function(req,res){
+	Dress.findByIdAndRemove(req.params.id,function(err){
+		if(err){
+			res.redirect("/dresses");
+		}else{
+			res.redirect("/dresses");
 		}
 	});
 });

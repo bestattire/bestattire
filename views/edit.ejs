@@ -1,0 +1,22 @@
+<% include partials/header %>
+
+<div class="background">
+	<div class="new">
+		<h1>Edit</h1>
+		<form action="/dresses/<%= dresses._id %>?_method=PUT" method="POST">
+			<div class="textbox">
+				<input type="text" name="dresses[type]" value= "<%= dresses.type %>">
+			</div>
+			<div class="textbox">
+				<input type="text" name="dresses[image]" value= "<%= dresses.image %>">
+			</div>
+			<div class="textbox">
+				<input type="text" name="dresses[description]" value= "<%= dresses.description %>">
+			</div>	
+			<input class="btn btn-primary newbtn" type="submit" name="login-button" value="Edit">
+		</form>
+	</div>
+</div>
+<a class="btn btn-success" href="/dresses">go back</a>
+
+<% include partials/footer %>

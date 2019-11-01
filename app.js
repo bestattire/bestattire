@@ -3,15 +3,12 @@ var express = require('express'),
 	bodyParser = require("body-parser"),
 	mongoose =require("mongoose"),
 	Dress = require("./models/dresses"),
-	Ethnic = require("./models/ethnic"),
-	Casual = require("./models/casual"),
 	passport =require("passport"),
-	LocalStrategy=require("passport-local");
+	LocalStrategy=require("passport-local"),
+	methodOverride=require("method-override"),
 	User=require("./models/user");
 
 var dressesRoutes = require("./routes/dresses"),
-	casualRoutes = require("./routes/casual"),
-	ethnicRoutes = require("./routes/ethnic"),
 	authRoutes = require("./routes/auth");
 
 //mongoose.connect("mongodb://localhost/best_attire", {useNewUrlParser:true});
@@ -20,6 +17,7 @@ mongoose.connect(url);
 //mongoose.connect("mongodb+srv://best-attire:best1234@best-attire-6udzw.mongodb.net/test?retryWrites=true&w=majority");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
+app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 
 //passport configuration
@@ -39,8 +37,6 @@ app.use(function(req,res,next){
 });
 
 app.use(dressesRoutes);
-app.use(ethnicRoutes);
-app.use(casualRoutes);
 app.use(authRoutes);
 
 var port = process.env.PORT || 3000;
