@@ -5,6 +5,7 @@ var express = require('express'),
 	Dress = require("./models/dresses"),
 	passport =require("passport"),
 	LocalStrategy=require("passport-local"),
+	flash = require("connect-flash"),
 	methodOverride=require("method-override"),
 	User=require("./models/user");
 	seedDB = require("./seeds");
@@ -21,6 +22,7 @@ mongoose.connect(url);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 app.use(methodOverride("_method"));
+app.use(flash());
 app.set("view engine", "ejs");
 
 //passport configuration
@@ -36,6 +38,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 app.use(function(req,res,next){
 	res.locals.currentUser = req.user;
+	res.locals.error = req.flash("error");
+	res.locals.success = req.flash("success");
 	next();
 });
 

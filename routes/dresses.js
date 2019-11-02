@@ -61,6 +61,7 @@ router.put("/dresses/:id",checkdressowner, function(req,res){
 		if(err){
 			res.redirect("/dresses");
 		}else{
+			req.flash("success","Successfully updated");
 			res.redirect("/dresses/"+req.params.id);
 		}
 	});
@@ -72,6 +73,7 @@ router.delete("/dresses/:id",checkdressowner,function(req,res){
 		if(err){
 			res.redirect("/dresses");
 		}else{
+			req.flash("success","Successfully deleted");
 			res.redirect("/dresses");
 		}
 	});
@@ -81,6 +83,7 @@ function isLoggedIn(req,res,next){
 	if(req.isAuthenticated()){
 		return next();
 	}
+	req.flash("error","PLease login first!");
 	res.redirect("/login");
 };
 

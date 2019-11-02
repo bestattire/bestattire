@@ -10,8 +10,9 @@ router.get("/", function(req,res){
 
 //LOGIN LOGIC
 router.get("/login", function(req,res){
-	res.render("login.ejs");
-})
+	res.render("login");
+});
+
 router.post("/login", passport.authenticate("local",
 	{
 		successRedirect: "/dresses",
@@ -27,10 +28,11 @@ router.post("/signup",function(req,res){
 	var newuser = new User({username: req.body.username});
 	User.register(newuser, req.body.password, function(err,user){
 		if(err){
-			console.log(err);
-			return res.render("signup");
+			req.flash("error", err.message);
+			return res.redirect("/signup");
 		}
 		passport.authenticate("local")(req,res,function(){
+			req.flash("success","Welcome to Best Attires"+user.username);
 			res.redirect("/dresses");
 		});
 	});
@@ -46,6 +48,7 @@ function isLoggedIn(req,res,next){
 	if(req.isAuthenticated()){
 		return next();
 	}
+	req.flash("error","Please login first!");
 	res.redirect("/login");
 };
 
