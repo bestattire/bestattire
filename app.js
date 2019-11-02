@@ -13,7 +13,7 @@ var express = require('express'),
 var dressesRoutes = require("./routes/dresses"),
 	authRoutes = require("./routes/auth");
 
-//seedDB();
+seedDB();
 
 //mongoose.connect("mongodb://localhost/best_attire", {useNewUrlParser:true});
 var url = process.env.DATABASEURL || "mongodb://localhost/best_attire"
