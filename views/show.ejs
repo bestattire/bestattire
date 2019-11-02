@@ -4,7 +4,14 @@
 
 <img src="<%= dresses.image %>">
 <p><%= dresses.description %></p>
-<a class="btn btn-warning" href="/dresses/<%= dresses._id %>/edit">Edit</a>
-<form action="/dresses/<%= dresses._id %>?_method=DELETE" method="POST">
-	<button class="btn btn-danger">Delete</button>
+<p>
+	<em>Submitted by <%= dresses.author.username %></em>
+</p> 
+<% if(currentUser && dresses.author.id.equals(currentUser._id)){ %>
+	<a class="btn btn-warning" href="/dresses/<%= dresses._id %>/edit">Edit</a>
+	<form action="/dresses/<%= dresses._id %>?_method=DELETE" method="POST">
+		<button class="btn btn-danger">Delete</button>
+	</form>
+<% } %>
+
 <% include partials/footer %>

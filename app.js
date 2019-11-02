@@ -7,9 +7,12 @@ var express = require('express'),
 	LocalStrategy=require("passport-local"),
 	methodOverride=require("method-override"),
 	User=require("./models/user");
+	seedDB = require("./seeds");
 
 var dressesRoutes = require("./routes/dresses"),
 	authRoutes = require("./routes/auth");
+
+//seedDB();
 
 //mongoose.connect("mongodb://localhost/best_attire", {useNewUrlParser:true});
 var url = process.env.DATABASEURL || "mongodb://localhost/best_attire"
