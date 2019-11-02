@@ -14,6 +14,7 @@
 	<div class="row text-center" style="display:flex; flex-wrap:wrap;">
 		<% dresses.forEach(function(dresses){ %>
 		<div class="col-md-3 col-md-6">
+		<% if(currentUser && dresses.author.id.equals(currentUser._id)){ %>
 			<div class="thumbnail">
 				<img src="<%= dresses.image %>">
 			</div>
@@ -23,6 +24,7 @@
 			<p>
 				<a href="/dresses/<%= dresses._id %>" class="btn btn-primary">More info</a>
 			</p>
+		<% } %>
 		</div>
 		<% }); %>
 	</div>	
